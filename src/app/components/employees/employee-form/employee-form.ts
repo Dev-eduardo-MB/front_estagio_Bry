@@ -41,7 +41,7 @@ export class EmployeeForm implements OnInit {
 
   loadCompanies() {
     this.companyService.getAll().subscribe((res) => {
-      this.companies = res.data ?? res; // compatibilidade
+      this.companies = res.data ?? res; 
       this.cdr.detectChanges();
     });
   }
@@ -56,10 +56,9 @@ export class EmployeeForm implements OnInit {
 
   save() {
 
-  // Marca tudo como touched para exibir required
+
   this.form.markAllAsTouched();
 
-  // ➤ VALIDAR CPF (somente números + 11 dígitos)
   const rawCpf = this.form.get('cpf')?.value || '';
   const cpf = rawCpf.replace(/\D/g, '');
   this.form.get('cpf')?.setValue(cpf);
@@ -82,13 +81,12 @@ export class EmployeeForm implements OnInit {
    next: (res) => {
   this.loading = false;
 
-  // Laravel retorna o funcionário (ID = alguém foi criado/atualizado com sucesso)
+
   if (res?.id) {
     this.router.navigate(['/employees']);
     return;
   }
 
-  // Erros 422 (validação)
   if (res?.status === 422 && res?.data?.errors) {
 
     if (res.data.errors.login) {
@@ -112,8 +110,6 @@ export class EmployeeForm implements OnInit {
     
   });
 }
-
-
   cancel() {
     this.router.navigate(['/employees']);
   }

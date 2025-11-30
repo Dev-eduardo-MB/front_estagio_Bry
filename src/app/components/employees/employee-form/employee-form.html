@@ -45,8 +45,6 @@
         </div>
       </div>
 
-
-      <!-- CPF -->
       <div class="form-group">
         <label>CPF</label>
 
@@ -58,24 +56,19 @@
           (input)="form.get('cpf')?.setValue($event.target.value.replace(/[^0-9]/g,''))"
         >
 
-        <!-- required -->
         <div class="error" *ngIf="form.get('cpf')?.touched && form.get('cpf')?.hasError('required')">
           CPF is required.
         </div>
 
-        <!-- tamanho inválido -->
         <div class="error" *ngIf="form.get('cpf')?.hasError('invalidLength')">
           CPF must contain exactly 11 digits.
         </div>
 
-        <!-- duplicado -->
         <div class="error" *ngIf="form.get('cpf')?.hasError('exists')">
           This CPF is already in use.
         </div>
       </div>
 
-
-      <!-- EMAIL -->
       <div class="form-group">
         <label>E-mail</label>
 
@@ -85,24 +78,24 @@
           placeholder="example@domain.com"
         >
 
-        <!-- required -->
+    
         <div class="error" *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')">
           Email is required.
         </div>
 
-        <!-- inválido -->
+     
         <div class="error" *ngIf="form.get('email')?.touched && form.get('email')?.hasError('email')">
           Enter a valid email.
         </div>
 
-        <!-- duplicado -->
+        
         <div class="error" *ngIf="form.get('email')?.hasError('exists')">
           This email is already in use.
         </div>
       </div>
 
 
-      <!-- PASSWORD -->
+      
       <div class="form-group">
         <label>Password</label>
 
@@ -112,19 +105,18 @@
           placeholder="Enter password"
         >
 
-        <!-- required -->
+       
         <div class="error" *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')">
           Password is required.
         </div>
 
-        <!-- min length -->
+        
         <div class="error" *ngIf="form.get('password')?.hasError('minlength')">
           Password must be at least 6 characters.
         </div>
       </div>
 
 
-      <!-- COMPANY CHECKBOX -->
       <div class="form-group">
         <label>Assign Companies</label>
 
@@ -147,7 +139,6 @@
       </div>
 
 
-      <!-- BUTTONS -->
       <div class="actions">
         <button type="button" class="btn primary" (click)="save()" [disabled]="loading">
           {{ loading ? 'Saving...' : 'Save' }}

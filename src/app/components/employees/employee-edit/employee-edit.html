@@ -5,7 +5,7 @@
 
     <form [formGroup]="form" (ngSubmit)="save()" class="form">
 
-      <!-- LOGIN -->
+     
       <div class="form-group">
         <label>Login</label>
         <input type="text" formControlName="login" />
@@ -21,9 +21,9 @@
         <small class="error" *ngIf="form.get('login')?.hasError('exists')">
           This login is already taken.
         </small>
-      </div>
+      </div> 
 
-      <!-- NAME -->
+     
       <div class="form-group">
         <label>Name</label>
         <input type="text" formControlName="name" />
@@ -33,7 +33,6 @@
         </small>
       </div>
 
-      <!-- CPF -->
       <div class="form-group">
         <label>CPF</label>
         <input type="text" formControlName="cpf" />
@@ -51,7 +50,7 @@
         </small>
       </div>
 
-      <!-- EMAIL -->
+   
       <div class="form-group">
         <label>Email</label>
         <input type="email" formControlName="email" />
@@ -69,7 +68,7 @@
         </small>
       </div>
 
-      <!-- PASSWORD -->
+    
       <div class="form-group">
         <label>Password (leave empty to keep current)</label>
         <input type="password" formControlName="password" />
@@ -79,7 +78,7 @@
         </small>
       </div>
 
-      <!-- COMPANIES -->
+      
       <div class="form-group">
         <label>Companies</label>
 
@@ -95,12 +94,12 @@
         </div>
       </div>
 
-      <!-- GENERAL REQUEST ERROR -->
+      
       <small class="error" *ngIf="form?.hasError('requestFailed')">
         Error while updating employee. Try again later.
       </small>
 
-      <!-- BUTTONS -->
+    
       <div class="actions">
         <button class="btn outline" type="button" (click)="cancel()">Cancel</button>
         <button class="btn primary" type="submit" [disabled]="loading">Save</button>

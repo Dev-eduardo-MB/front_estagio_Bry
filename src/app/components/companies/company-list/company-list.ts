@@ -36,11 +36,11 @@ export class CompanyList implements OnInit {
 
       if (res.success) {
         this.companies = res.data;
-        this.cdr.detectChanges();  // Necessário para Angular 17+
+        this.cdr.detectChanges(); 
         return;
       }
 
-      // ERRO — mas sem console.error
+     
       this.error = `Error ${res.status}: Could not load companies.`;
       this.companies = [];
       this.cdr.detectChanges();
@@ -57,7 +57,7 @@ export class CompanyList implements OnInit {
         return;
       }
 
-      // Erro na deleção sem console
+      
       this.error = `Error ${res.status}: Unable to delete.`;
     });
   }

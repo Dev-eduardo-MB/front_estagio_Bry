@@ -38,14 +38,14 @@ export class CompanyInfoComponent implements OnInit {
 
       this.loading = false;
 
-      // SUCESSO
+     
       if (res.success) {
         this.employees = res.data?.employees || [];
         this.cdr.detectChanges();
         return;
       }
 
-      // ERRO CONTROLADO PELO WRAP()
+      
       this.error = `Erro ${res.status}: ${res.message}`;
       this.employees = [];
       this.cdr.detectChanges();
