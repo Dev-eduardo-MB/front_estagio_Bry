@@ -1,0 +1,114 @@
+
+$page-bg: #F4F7FA;
+$white: #FFFFFF;
+$title-color: #003087;
+$primary: #0057B8;
+$primary-hover: #003A75;
+$danger: #dc3545;
+$danger-hover: #b02a37;
+$table-border: #D9E2EC;
+$table-hover: #E8EEF5;
+
+
+.page {
+  background: $page-bg; 
+  min-height: 100vh;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+
+.card {
+  background: $white;
+  width: 100%;
+  max-width: 950px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+
+.title {
+  font-size: 26px;
+  font-weight: 600;
+  color: $title-color;
+  margin-bottom: 20px;
+}
+
+
+.btn {
+  padding: 8px 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.btn.primary {
+  background: $primary;
+  color: white;
+}
+
+.btn.primary:hover {
+  background: $primary-hover;
+}
+
+.btn.danger {
+  background: $danger;
+  color: white;
+}
+
+.btn.danger:hover {
+  background: $danger-hover;
+}
+
+.new-btn {
+  margin-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  margin-top: 15px;
+  border-collapse: separate;   
+  border-spacing: 0;           
+  border-radius: 12px;       
+  overflow: hidden;            
+}
+
+
+table th {
+  background: $primary;
+  color: white;
+  font-weight: 500;
+  padding: 12px;
+  text-align: left;
+}
+
+table td {
+  padding: 12px;
+  border-bottom: 1px solid $table-border; 
+}
+
+table tr:nth-child(even) {
+  background: $page-bg;
+}
+
+table tr:hover {
+  background: $table-hover;
+}
+
+
+td:last-child {
+  width: 160px;
+
+  
+  .btn {
+    margin-right: 8px;
+  }
+
+  .btn:last-child {
+    margin-right: 0;
+  }
+}
