@@ -1,0 +1,45 @@
+<div class="home-container">
+  <main class="content">
+  <h1 class="title">Bem-vindo</h1>
+
+  <section class="intro">
+    <h2 class="section-title">Sobre o Projeto</h2>
+    <p class="section-text">
+      Este sistema foi desenvolvido para gerenciar funcionários e empresas de forma simples.
+      Ele permite realizar todas as operações essenciais, como criar,
+      editar, listar e excluir registros — tudo seguindo os princípios da arquitetura RESTful.
+    </p>
+  </section>
+
+  <section class="intro">
+    <h2 class="section-title">Tecnologias Utilizadas</h2>
+    <p class="section-text">
+      O frontend foi construído utilizando a versão mais recente do <strong>Angular</strong>,
+      aproveitando componentes standalone. A estilização segue um layout organizado com SCSS.
+    </p>
+    <p class="section-text">
+      O backend é alimentado por uma <strong>API REST</strong>, responsável por toda a lógica
+      de negócio e operações com o banco de dados. A comunicação entre o frontend e a API
+      acontece através de requisições HTTP, garantindo uma arquitetura modular e robusta.
+    </p>
+  </section>
+
+  <section class="intro">
+    <h2 class="section-title">O que é uma API REST?</h2>
+    <p class="section-text">
+      Uma API REST (Representational State Transfer) é um estilo arquitetural que organiza a
+      comunicação entre sistemas utilizando os verbos HTTP, como <strong>GET</strong>,
+      <strong>POST</strong>, <strong>PUT</strong> e <strong>DELETE</strong>. Cada requisição
+      representa uma ação sobre um recurso, tornando o sistema previsível, escalável e fácil
+      de manter.
+    </p>
+  </section>
+
+  <div class="actions">
+    <button routerLink="/employees" class="btn primary">Lista de Funcionários</button>
+    <button routerLink="/companies" class="btn secondary">Lista de Empresas</button>
+  </div>
+</main>
+
+
+</div>
