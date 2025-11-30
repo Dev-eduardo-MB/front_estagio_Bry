@@ -1,4 +1,4 @@
-// Variáveis
+
 $page-bg: #F4F7FA;
 $white: #FFFFFF;
 $title-color: #003087;
@@ -7,7 +7,7 @@ $primary-hover: #003A75;
 $table-border: #D9E2EC;
 $table-hover: #E8EEF5;
 
-// Layout geral
+
 .page {
   background: $page-bg;
   min-height: 100vh;
@@ -20,17 +20,17 @@ $table-hover: #E8EEF5;
 
 .card {
   background: $white;
-  width: 90%;             // antes 100%
-  max-width: 850px;       // limita o tamanho para não ficar gigante
-  padding: 30px;          // padding um pouco menor
+  width: 90%;             
+  max-width: 850px;       
+  padding: 30px;          
   border-radius: 14px;
-  margin: 0 auto;         // garante que fique centralizado
+  margin: 0 auto;         
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-  overflow-x: auto;       // mantém o scroll horizontal se necessário
+  overflow-x: auto;       
 }
 
 
-// Título
+
 .title {
   font-size: 26px;
   font-weight: 700;
@@ -38,7 +38,7 @@ $table-hover: #E8EEF5;
   margin-bottom: 25px;
 }
 
-// Tabela
+
 .table {
   width: 100%;
   min-width: 700px;        
@@ -76,11 +76,11 @@ $table-hover: #E8EEF5;
   td {
     padding: 14px;
     font-size: 14px;
-    word-break: break-all;   // Evita estouro de textos longos como hash
+    word-break: break-all;  
   }
 }
 
-// Loading
+
 .loading {
   font-size: 16px;
   font-weight: 600;
@@ -88,7 +88,7 @@ $table-hover: #E8EEF5;
   margin-top: 10px;
 }
 
-// Nenhum funcionário
+
 .empty-message {
   margin-top: 20px;
   padding: 15px;
@@ -100,7 +100,6 @@ $table-hover: #E8EEF5;
 }
 
 
-// Nenhum funcionário
 .empty-message {
   margin-top: 20px;
   padding: 15px;

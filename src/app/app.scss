@@ -5,9 +5,8 @@ $page-bg: #F4F7FA;
   background: $page-bg;
 }
 
-/* espaço para sidebar fixa */
 .content {
-  margin-left: 240px;  // ✔ o conteúdo nunca invade o sidebar
+  margin-left: 240px; 
   width: calc(100% - 240px);
 
   padding: 40px 60px;

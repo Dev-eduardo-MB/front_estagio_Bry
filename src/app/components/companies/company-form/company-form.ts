@@ -36,7 +36,7 @@ export class CompanyForm implements OnInit {
       address: ['', Validators.required],
     });
 
-    // ✔️ Bloqueia caracteres não numéricos
+    
     this.form.get('cnpj')?.valueChanges.subscribe(value => {
       const onlyDigits = (value || '').replace(/\D/g, '');
       if (value !== onlyDigits) {
@@ -44,7 +44,7 @@ export class CompanyForm implements OnInit {
       }
     });
 
-    // Carregar funcionários
+    
     this.employeeService.getAllEmployees().subscribe({
       next: employees => {
         this.employees = employees;
@@ -70,17 +70,16 @@ export class CompanyForm implements OnInit {
 
   const cnpjControl = this.form.get('cnpj');
 
-  // ✔️ Primeiro: marcar tudo como touched para mostrar os "required"
+  
   this.form.markAllAsTouched();
 
-  // ✔️ Se o formulário já está inválido (faltando required), não faz mais nada
+
   if (this.form.invalid) {
     return;
   }
 
   const digits = (cnpjControl?.value || '').replace(/\D/g, '');
 
-  // ✔️ Agora sim valida o tamanho do CNPJ
   if (digits.length !== 14) {
     cnpjControl?.setErrors({
       ...(cnpjControl?.errors || {}),
@@ -100,13 +99,13 @@ export class CompanyForm implements OnInit {
 
     this.loading = false;
 
-    // ✔️ Sucesso
+  
     if (res.success) {
       this.router.navigate(['/companies']);
       return;
     }
 
-    // ✔️ CNPJ duplicado
+    
     if (res.status === 422 && res.data?.errors?.cnpj) {
       cnpjControl?.setErrors({
         ...(cnpjControl.errors || {}),
@@ -115,7 +114,7 @@ export class CompanyForm implements OnInit {
       return;
     }
 
-    // ✔️ Outros erros
+   
     this.error = `Erro ${res.status}: ${res.message}`;
     this.form.setErrors({ requestFailed: true });
   });

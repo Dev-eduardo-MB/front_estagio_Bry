@@ -42,7 +42,7 @@ export class CompanyEditComponent implements OnInit {
       employees: [[]]
     });
 
-    // ✔️ BLOQUEAR qualquer caractere que não seja número
+    
     this.form.get('cnpj')?.valueChanges.subscribe(value => {
       const onlyDigits = (value || '').replace(/\D/g, '');
       if (value !== onlyDigits) {
@@ -107,7 +107,7 @@ export class CompanyEditComponent implements OnInit {
     const cnpjControl = this.form.get('cnpj');
     const digits = (cnpjControl?.value || '').replace(/\D/g, '');
 
-    // ✔️ VALIDAR 14 DÍGITOS e MESCLAR ERROS
+   
     if (digits.length !== 14) {
       cnpjControl?.setErrors({
         ...(cnpjControl.errors || {}),
@@ -140,7 +140,7 @@ export class CompanyEditComponent implements OnInit {
         return;
       }
 
-      // ✔️ CNPJ duplicado
+     
       if (res.status === 422 && res.data?.errors?.cnpj) {
         cnpjControl?.setErrors({
           ...(cnpjControl.errors || {}),

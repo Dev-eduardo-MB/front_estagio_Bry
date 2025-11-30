@@ -5,7 +5,7 @@
 
     <form class="form" [formGroup]="form">
 
-      <!-- NAME -->
+    
       <div class="form-group">
         <label>Company Name</label>
         <input type="text" formControlName="name" placeholder="Enter company name">
@@ -15,30 +15,28 @@
         </div>
       </div>
 
-     
-      <!-- CNPJ -->
+    
       <div class="form-group">
         <label>CNPJ</label>
         <input type="text" formControlName="cnpj" placeholder="00000000000000">
       
-        <!-- erro de required -->
+     
         <div class="error" *ngIf="form.get('cnpj')?.touched && form.get('cnpj')?.hasError('required')">
           CNPJ is required.
         </div>
       
-        <!-- erro de tamanho inválido (14 dígitos) -->
+    
         <div class="error" *ngIf="form.get('cnpj')?.touched && form.get('cnpj')?.hasError('invalidLength')">
           CNPJ must have exactly 14 digits.
         </div>
       
-        <!-- erro de duplicidade vindo do backend -->
+        
         <div class="error" *ngIf="form.get('cnpj')?.hasError('exists')">
           This CNPJ already exists.
         </div>
-      </div> <!-- ✔️ FECHOU A DIV QUE FALTAVA -->
+      </div> 
 
 
-      <!-- ADDRESS -->
       <div class="form-group">
         <label>Address</label>
         <input type="text" formControlName="address" placeholder="Enter address">
@@ -48,7 +46,7 @@
         </div>
       </div>
 
-      <!-- EMPLOYEES LIST -->
+     
       <div class="form-group">
         <h3>Link Employees</h3>
 
@@ -74,7 +72,6 @@
 
       </div>
 
-      <!-- ACTIONS -->
       <div class="actions">
         <button type="button" class="btn primary" (click)="save()" [disabled]="loading">
           {{ loading ? 'Saving...' : 'Save' }}
