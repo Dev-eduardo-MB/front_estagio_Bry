@@ -64,8 +64,6 @@ export class EmployeeEditComponent implements OnInit {
   loadCompanies() {
     this.companyesService.getAll().subscribe((res) => {
       this.companies = res;
-
-      
       this.cdr.detectChanges();
     });
   }

@@ -33,7 +33,7 @@ export class EmployeeForm implements OnInit {
     login: ['', Validators.required],
     name: ['', Validators.required],
     cpf: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
+    email: ['', Validators.required],
     password: ['', Validators.required]
   });
 
@@ -80,8 +80,6 @@ loadCompanies() {
       },
       error: (err) => {
         this.loading = false;
-        console.error(err);
-        alert('Error creating employee.');
       }
     });
   }

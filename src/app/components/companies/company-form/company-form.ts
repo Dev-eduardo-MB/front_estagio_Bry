@@ -25,7 +25,7 @@ export class CompanyForm implements OnInit {
     private companyService: CompanyesService,
     private employeeService: EmployeeService,
     private router: Router,
-    private cdr: ChangeDetectorRef   // 🔥 Adicionado
+    private cdr: ChangeDetectorRef 
   ) {}
 
   ngOnInit(): void {
@@ -35,17 +35,15 @@ export class CompanyForm implements OnInit {
       address: ['', Validators.required],
     });
 
-    // 🔥 Carregar funcionários
+    // Carregar funcionários por cdr  (foram testados outros cliclos de vida mas sem sucesso acredito ser por conta da verçao do Angular)
     this.employeeService.getAllEmployees().subscribe({
       next: (employees: any[]) => {
         this.employees = employees;
-
-        // 🔥 força atualização imediata da UI
         this.cdr.detectChanges();
       },
       error: () => {
         this.employees = [];
-        this.cdr.detectChanges(); // mantém comportamento consistente
+        this.cdr.detectChanges();
       }
     });
   }
@@ -76,8 +74,6 @@ export class CompanyForm implements OnInit {
               },
               error: (err) => {
                 this.loading = false;
-                console.error(err);
-                alert('Error creating company.');
               }
             });
           }

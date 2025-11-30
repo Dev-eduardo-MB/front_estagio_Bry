@@ -13,8 +13,8 @@ import { ChangeDetectorRef } from '@angular/core';
   imports: [CommonModule, RouterModule],
   templateUrl: './company-list.html',
   styleUrls: ['./company-list.scss'],
-})
-export class CompanyList implements OnInit, OnChanges, DoCheck, AfterContentChecked, AfterViewChecked {
+})                          //cliclos de vida testado
+export class CompanyList /*implements OnInit, OnChanges, DoCheck, AfterContentChecked, AfterViewChecked*/ {
 
   companies: any[] = [];
   loading = false;
@@ -28,24 +28,25 @@ export class CompanyList implements OnInit, OnChanges, DoCheck, AfterContentChec
   ngOnInit(): void {
     this.loadCompanies();
   }
+/*todos os ciclos de vida abaixo foram testados todavia eles nao conseguem renderizar a lista, 
+a maneira que a lista rederisou foi por cdr
+acredito se tratar de um problema relacionado a verção do angula mais recente*/
 
-  ngOnChanges(): void {}
-  ngDoCheck(): void {}
-  ngAfterContentChecked(): void {}
-  ngAfterViewChecked(): void {}
+  //ngOnChanges(): void {}
+  //ngDoCheck(): void {}
+  //ngAfterContentChecked(): void {}
+  //ngAfterViewChecked(): void {}
 
   loadCompanies(): void {
     this.loading = true;
 
     this.companyService.getAll().subscribe({
       next: (data: any) => {
-        console.log('API retornou:', data);
         this.companies = data;
         this.loading = false;
         this.cdr.detectChanges();
       },
       error: (err: any) => {
-        console.error('Erro API:', err);
         this.error = err;
         this.loading = false;
       }
@@ -57,7 +58,6 @@ export class CompanyList implements OnInit, OnChanges, DoCheck, AfterContentChec
 
     this.companyService.delete(id).subscribe({
       next: () => this.loadCompanies(),
-      error: () => alert('Erro ao deletar empresa')
     });
   }
 }

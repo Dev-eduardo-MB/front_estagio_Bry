@@ -40,7 +40,7 @@ export class CompanyEditComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       cnpj: ['', Validators.required],
-      address: ['', Validators.required],   // <-- ADICIONADO
+      address: ['', Validators.required],
       employees: [[]]
     });
 
@@ -50,31 +50,37 @@ export class CompanyEditComponent implements OnInit {
   loadData() {
     this.loading = true;
 
-    this.employeesService.getAllEmployees().subscribe((employees: any[]) => {
-      this.employees = employees;
+    this.employeesService.getAllEmployees().subscribe({
+      next: (employees: any[]) => {
+        this.employees = employees;
 
-      this.companyesService.getAll().subscribe((companies: any[]) => {
-        const company = companies.find((c: any) => c.id == this.companyId);
+        this.companyesService.getAll().subscribe({
+          next: (companies: any[]) => {
+            const company = companies.find((c: any) => c.id == this.companyId);
 
-        if (!company) {
-          console.error("Empresa não encontrada");
-          return;
-        }
+            if (!company) return;
 
-        this.companyEmployeesIds = company.employees
-          ? company.employees.map((e: any) => e.id)
-          : [];
+            this.companyEmployeesIds = company.employees
+              ? company.employees.map((e: any) => e.id)
+              : [];
 
-        // Preencher form
-        this.form.patchValue({
-          name: company.name,
-          cnpj: company.cnpj,
-          address: company.address,            // <-- ADICIONADO
-          employees: this.companyEmployeesIds
+            this.form.patchValue({
+              name: company.name,
+              cnpj: company.cnpj,
+              address: company.address,
+              employees: this.companyEmployeesIds
+            });
+
+            this.loading = false;
+          },
+          error: () => {
+            this.loading = false;
+          }
         });
-
+      },
+      error: () => {
         this.loading = false;
-      });
+      }
     });
   }
 
@@ -90,22 +96,25 @@ export class CompanyEditComponent implements OnInit {
 
     this.form.patchValue({ employees: list });
   }
+
   cancel() {
     history.back();
   }
 
   save() {
-  if (this.form.invalid) return;
+    if (this.form.invalid) return;
 
-  const payload = {
-    name: this.form.value.name,
-    cnpj: this.form.value.cnpj,
-    address: this.form.value.address,
-    employee_ids: this.form.value.employees
-  };
+    const payload = {
+      name: this.form.value.name,
+      cnpj: this.form.value.cnpj,
+      address: this.form.value.address,
+      employee_ids: this.form.value.employees
+    };
 
-  this.companyesService.update(this.companyId, payload).subscribe(() => {
-    this.router.navigate(['/companies']);   // <-- REDIRECIONA
-  });
-}
+    this.companyesService.update(this.companyId, payload).subscribe({
+      next: () => {
+        this.router.navigate(['/companies']);
+      }
+    });
+  }
 }

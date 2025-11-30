@@ -9,7 +9,6 @@ export class CompanyesService {
 
   constructor(private http: HttpClient) {}
 
-  // LISTAR TODAS AS EMPRESAS
   getAll(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
@@ -18,17 +17,14 @@ export class CompanyesService {
     return this.http.get(`${this.apiUrl}/${companyId}`);
   }
 
-  // CRIAR EMPRESA
   create(data: any): Observable<any> {
     return this.http.post(this.apiUrl, data);
   }
 
-  // ATUALIZAR
   update(id: number, data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, data);
   }
 
-  // DELETAR
   delete(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
