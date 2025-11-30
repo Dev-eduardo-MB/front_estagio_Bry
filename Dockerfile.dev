@@ -1,0 +1,24 @@
+# -------------------------
+#  Dockerfile.dev — Angular Development
+# -------------------------
+
+# Imagem base Node
+FROM node:22-alpine
+
+# Diretório de trabalho
+WORKDIR /app
+
+# Copia package.json e package-lock.json
+COPY package*.json ./
+
+# Instala dependências do Angular
+RUN npm install
+
+# Copia todo o restante do projeto
+COPY . .
+
+# Expõe porta usada pelo ng serve
+EXPOSE 4200
+
+# Comando padrão para rodar em modo desenvolvimento
+CMD ["npm", "run", "start", "--", "--host", "0.0.0.0"]
