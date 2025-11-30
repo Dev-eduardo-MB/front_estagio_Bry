@@ -1,0 +1,133 @@
+
+$page-bg: #F4F7FA;
+$white: #FFFFFF;
+$text: #003087;
+$primary: #0057B8;
+$primary-hover: #003A75;
+$danger: #dc3545;
+$danger-hover: #b02a37;
+$table-border: #D9E2EC;
+$table-hover: #E8EEF5;
+
+
+.page { 
+  min-height: 100vh;
+  padding: 40px;
+  background: $page-bg;
+  display: flex;
+  justify-content: center; 
+  align-items: flex-start;
+}
+
+
+.card {
+  background: $white;
+  width: 850px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 22px;
+  font-weight: 600;
+  color: $text;
+}
+h3 {
+  font-size: 18px;
+  color: $text;
+  font-weight: 600;
+  margin-bottom: px;
+}
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  label{
+     color: $text;
+  }
+
+  > label {   
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: $text;
+  }
+
+  input,
+  select { 
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid $table-border;
+    background: $white;
+    font-size: 14px;
+    transition: border 0.2s ease;
+
+    &:focus {
+      border-color: $primary;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba($primary, 0.15);
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.btn {
+  padding: 10px 18px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: 0.2s ease;
+
+  &.primary {
+    background: $primary;
+    color: white;
+
+    &:hover {
+      background: $primary-hover;
+    }
+  }
+
+  &.outline {
+    border: 2px solid $text;
+    background: transparent;
+    color: $text;
+
+    &:hover {
+      background: rgba($text, 0.1);
+    }
+  }
+}
+
+
+.company-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.company-list label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 15px;
+  color: $text;
+}
