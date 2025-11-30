@@ -1,0 +1,61 @@
+<div class="page">
+  <div class="card">
+
+    <h2 class="title">Company Form</h2>
+
+    <form class="form" [formGroup]="form">
+
+      <div class="form-group">
+        <label>Company Name</label>
+        <input type="text" formControlName="name" placeholder="Enter company name">
+      </div>
+
+      <div class="form-group">
+        <label>CNPJ</label>
+        <input type="text" formControlName="cnpj" placeholder="00.000.000/0000-00">
+      </div>
+
+      <div class="form-group">
+        <label>Address</label>
+        <input type="text" formControlName="address" placeholder="Enter address">
+      </div>
+
+      <div class="form-group">
+        <h3>Link Employees</h3>
+      
+        <div>
+          <ng-container *ngIf="employees.length > 0; else noEmployees">
+      
+            <div *ngFor="let emp of employees">
+              <label>
+                <input 
+                  type="checkbox"
+                  [value]="emp.id"
+                  (change)="toggleEmployee(emp.id, $event)"
+                  [checked]="selectedEmployees.includes(emp.id)"
+                />
+                {{ emp.name }} ({{ emp.login }})
+              </label>
+            </div>
+      
+          </ng-container>
+      
+          <ng-template #noEmployees>
+            No employees available.
+          </ng-template>
+      
+        </div> 
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn primary" (click)="save()" [disabled]="loading">
+          {{ loading ? 'Saving...' : 'Save' }}
+        </button>
+
+        <button type="button" class="btn" (click)="cancel()">Cancel</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
