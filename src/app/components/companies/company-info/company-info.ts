@@ -12,17 +12,16 @@ import { RouterModule } from '@angular/router';
   templateUrl: './company-info.html',
   styleUrls: ['./company-info.scss']
 })
-export class CompanyInfoComponent implements
-  OnInit {
+export class CompanyInfoComponent implements OnInit {
 
   companyId!: number;
   employees: any[] = [];
   loading = true;
-  error: any = null;
+  error: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
-    private companyesService: CompanyesService,
+    private companyService: CompanyesService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -31,21 +30,25 @@ export class CompanyInfoComponent implements
     this.loadEmployees();
   }
 
-
   loadEmployees() {
     this.loading = true;
+    this.error = null;
 
-    this.companyesService.getEmployeesByCompany(this.companyId).subscribe({
-      next: (company) => {
-        this.employees = company?.employees || [];
-        this.loading = false;
+    this.companyService.getEmployeesByCompany(this.companyId).subscribe(res => {
+
+      this.loading = false;
+
+      // SUCESSO
+      if (res.success) {
+        this.employees = res.data?.employees || [];
         this.cdr.detectChanges();
-      },
-      error: (err) => {
-        this.error = err;
-        this.loading = false;
-        this.cdr.detectChanges();
+        return;
       }
+
+      // ERRO CONTROLADO PELO WRAP()
+      this.error = `Erro ${res.status}: ${res.message}`;
+      this.employees = [];
+      this.cdr.detectChanges();
     });
   }
 }
