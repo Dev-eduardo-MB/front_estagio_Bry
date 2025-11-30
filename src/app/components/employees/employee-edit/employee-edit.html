@@ -3,56 +3,107 @@
 
     <h2 class="title">Edit Employee</h2>
 
-    <form [formGroup]="form" class="form">
+    <form [formGroup]="form" (ngSubmit)="save()" class="form">
 
-      <!-- Login -->
+      <!-- LOGIN -->
       <div class="form-group">
         <label>Login</label>
-        <input type="text" formControlName="login" placeholder="Employee login">
+        <input type="text" formControlName="login" />
+
+        <small class="error" *ngIf="form.get('login')?.hasError('required') && form.get('login')?.touched">
+          Login is required.
+        </small>
+
+        <small class="error" *ngIf="form.get('login')?.hasError('pattern') && form.get('login')?.touched">
+          Only letters, numbers, _ and - are allowed.
+        </small>
+
+        <small class="error" *ngIf="form.get('login')?.hasError('exists')">
+          This login is already taken.
+        </small>
       </div>
 
-      <!-- Name -->
+      <!-- NAME -->
       <div class="form-group">
         <label>Name</label>
-        <input type="text" formControlName="name" placeholder="Employee name">
+        <input type="text" formControlName="name" />
+
+        <small class="error" *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched">
+          Name is required.
+        </small>
       </div>
 
       <!-- CPF -->
       <div class="form-group">
         <label>CPF</label>
-        <input type="text" formControlName="cpf" placeholder="00000000000">
+        <input type="text" formControlName="cpf" />
+
+        <small class="error" *ngIf="form.get('cpf')?.hasError('required') && form.get('cpf')?.touched">
+          CPF is required.
+        </small>
+
+        <small class="error" *ngIf="form.get('cpf')?.hasError('invalidLength')">
+          CPF must contain exactly 11 digits.
+        </small>
+
+        <small class="error" *ngIf="form.get('cpf')?.hasError('exists')">
+          This CPF already exists.
+        </small>
       </div>
 
-      <!-- Email -->
+      <!-- EMAIL -->
       <div class="form-group">
         <label>Email</label>
-        <input type="email" formControlName="email" placeholder="email@example.com">
+        <input type="email" formControlName="email" />
+
+        <small class="error" *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
+          Email is required.
+        </small>
+
+        <small class="error" *ngIf="form.get('email')?.hasError('email')">
+          Invalid email format.
+        </small>
+
+        <small class="error" *ngIf="form.get('email')?.hasError('exists')">
+          This email is already in use.
+        </small>
       </div>
 
-      <!-- Password -->
+      <!-- PASSWORD -->
       <div class="form-group">
-        <label>Password (optional)</label>
-        <input type="password" formControlName="password" placeholder="Enter new password">
+        <label>Password (leave empty to keep current)</label>
+        <input type="password" formControlName="password" />
+
+        <small class="error" *ngIf="form.get('password')?.hasError('minlength') && form.get('password')?.touched">
+          Minimum 6 characters.
+        </small>
       </div>
 
-      <hr>
+      <!-- COMPANIES -->
+      <div class="form-group">
+        <label>Companies</label>
 
-     <h3 class="title">Companies</h3>
+        <div class="company-list">
+          <label *ngFor="let company of companies">
+            <input
+              type="checkbox"
+              [checked]="form.value.company_ids.includes(company.id)"
+              (change)="toggleCompany(company.id)"
+            />
+            {{ company.name }}
+          </label>
+        </div>
+      </div>
 
-<div class="company-list">
-  <label *ngFor="let c of companies">
-    <input
-      type="checkbox"
-      [checked]="selectedCompanies.includes(c.id)"
-      (change)="toggleCompany(c.id)">
-    {{ c.name }}
-  </label>
-</div>
+      <!-- GENERAL REQUEST ERROR -->
+      <small class="error" *ngIf="form?.hasError('requestFailed')">
+        Error while updating employee. Try again later.
+      </small>
 
-      <!-- Buttons -->
+      <!-- BUTTONS -->
       <div class="actions">
-        <button class="btn primary" type="button" (click)="save()">Save</button>
-        <button class="btn" type="button" (click)="cancel()">Cancel</button>
+        <button class="btn outline" type="button" (click)="cancel()">Cancel</button>
+        <button class="btn primary" type="submit" [disabled]="loading">Save</button>
       </div>
 
     </form>

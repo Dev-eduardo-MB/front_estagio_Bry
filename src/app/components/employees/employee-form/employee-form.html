@@ -5,52 +5,147 @@
 
     <form class="form" [formGroup]="form">
 
+      <!-- LOGIN -->
       <div class="form-group">
         <label>Login</label>
-        <input type="text" formControlName="login" placeholder="Enter login">
+        <input 
+          type="text" 
+          formControlName="login" 
+          placeholder="Enter login"
+        >
+
+        <!-- required -->
+        <div class="error" *ngIf="form.get('login')?.touched && form.get('login')?.hasError('required')">
+          Login is required.
+        </div>
+
+        <!-- padrão inválido -->
+        <div class="error" *ngIf="form.get('login')?.touched && form.get('login')?.hasError('pattern')">
+          Login can only contain letters, numbers, hyphen (-) and underscore (_).
+        </div>
+
+        <!-- duplicado -->
+        <div class="error" *ngIf="form.get('login')?.hasError('exists')">
+          This login already exists.
+        </div>
       </div>
 
+
+      <!-- NAME -->
       <div class="form-group">
         <label>Name</label>
-        <input type="text" formControlName="name" placeholder="Enter full name">
+        <input 
+          type="text" 
+          formControlName="name" 
+          placeholder="Enter full name"
+        >
+
+        <div class="error" *ngIf="form.get('name')?.touched && form.get('name')?.hasError('required')">
+          Name is required.
+        </div>
       </div>
 
+
+      <!-- CPF -->
       <div class="form-group">
         <label>CPF</label>
-        <input type="text" formControlName="cpf" placeholder="000.000.000-00">
+
+        <input 
+          type="text"
+          formControlName="cpf"
+          placeholder="000.000.000-00"
+          maxlength="14"
+          (input)="form.get('cpf')?.setValue($event.target.value.replace(/[^0-9]/g,''))"
+        >
+
+        <!-- required -->
+        <div class="error" *ngIf="form.get('cpf')?.touched && form.get('cpf')?.hasError('required')">
+          CPF is required.
+        </div>
+
+        <!-- tamanho inválido -->
+        <div class="error" *ngIf="form.get('cpf')?.hasError('invalidLength')">
+          CPF must contain exactly 11 digits.
+        </div>
+
+        <!-- duplicado -->
+        <div class="error" *ngIf="form.get('cpf')?.hasError('exists')">
+          This CPF is already in use.
+        </div>
       </div>
 
+
+      <!-- EMAIL -->
       <div class="form-group">
         <label>E-mail</label>
-        <input type="email" formControlName="email" placeholder="example@domain.com">
+
+        <input 
+          type="email" 
+          formControlName="email" 
+          placeholder="example@domain.com"
+        >
+
+        <!-- required -->
+        <div class="error" *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')">
+          Email is required.
+        </div>
+
+        <!-- inválido -->
+        <div class="error" *ngIf="form.get('email')?.touched && form.get('email')?.hasError('email')">
+          Enter a valid email.
+        </div>
+
+        <!-- duplicado -->
+        <div class="error" *ngIf="form.get('email')?.hasError('exists')">
+          This email is already in use.
+        </div>
       </div>
 
+
+      <!-- PASSWORD -->
       <div class="form-group">
         <label>Password</label>
-        <input type="password" formControlName="password" placeholder="Enter password">
+
+        <input 
+          type="password" 
+          formControlName="password" 
+          placeholder="Enter password"
+        >
+
+        <!-- required -->
+        <div class="error" *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')">
+          Password is required.
+        </div>
+
+        <!-- min length -->
+        <div class="error" *ngIf="form.get('password')?.hasError('minlength')">
+          Password must be at least 6 characters.
+        </div>
       </div>
 
-      <!-- COMPANIES -->
+
+      <!-- COMPANY CHECKBOX -->
       <div class="form-group">
         <label>Assign Companies</label>
 
-        <!-- Se não existem empresas -->
         <div *ngIf="companies.length === 0">
           <input type="text" value="No companies registered" disabled/>
         </div>
 
-        <!-- Lista de empresas -->
         <div class="employee-list" *ngIf="companies.length > 0">
           <div *ngFor="let comp of companies">
             <label>
-              <input type="checkbox"
-                     [value]="comp.id"
-                     (change)="toggleCompany(comp.id, $event)">
+              <input 
+                type="checkbox"
+                [value]="comp.id"
+                (change)="toggleCompany(comp.id, $event)"
+              >
               {{ comp.name }} — {{ comp.cnpj }}
             </label>
           </div>
         </div>
       </div>
+
 
       <!-- BUTTONS -->
       <div class="actions">

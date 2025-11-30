@@ -27,29 +27,24 @@ export class EmployeeForm implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
 
-
   ngOnInit(): void {
-  this.form = this.fb.group({
-    login: ['', Validators.required],
-    name: ['', Validators.required],
-    cpf: ['', Validators.required],
-    email: ['', Validators.required],
-    password: ['', Validators.required]
-  });
+    this.form = this.fb.group({
+      login: ['', [Validators.required, Validators.pattern(/^[A-Za-z0-9_-]+$/)]],
+      name: ['', Validators.required],
+      cpf: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
 
-  this.loadCompanies();
-}
+    this.loadCompanies();
+  }
 
-loadCompanies() {
-  this.companyService.getAll().subscribe((res) => {
-    this.companies = res;
-
-    this.cdr.detectChanges();
-  });
-}
-
-  
-  
+  loadCompanies() {
+    this.companyService.getAll().subscribe((res) => {
+      this.companies = res.data ?? res; // compatibilidade
+      this.cdr.detectChanges();
+    });
+  }
 
   toggleCompany(id: number, event: any) {
     if (event.target.checked) {
@@ -60,29 +55,64 @@ loadCompanies() {
   }
 
   save() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
+
+  // Marca tudo como touched para exibir required
+  this.form.markAllAsTouched();
+
+  // ➤ VALIDAR CPF (somente números + 11 dígitos)
+  const rawCpf = this.form.get('cpf')?.value || '';
+  const cpf = rawCpf.replace(/\D/g, '');
+  this.form.get('cpf')?.setValue(cpf);
+
+  if (cpf.length !== 11) {
+    this.form.get('cpf')?.setErrors({ invalidLength: true });
+  }
+
+  if (this.form.invalid) return;
+
+  const payload = {
+    ...this.form.value,
+    cpf,
+    company_ids: this.selectedCompanies,
+  };
+
+  this.loading = true;
+
+  this.employeeService.create(payload).subscribe({
+   next: (res) => {
+  this.loading = false;
+
+  // Laravel retorna o funcionário (ID = alguém foi criado/atualizado com sucesso)
+  if (res?.id) {
+    this.router.navigate(['/employees']);
+    return;
+  }
+
+  // Erros 422 (validação)
+  if (res?.status === 422 && res?.data?.errors) {
+
+    if (res.data.errors.login) {
+      this.form.get('login')?.setErrors({ exists: true });
     }
 
-    const payload = {
-      ...this.form.value,
-      company_ids: this.selectedCompanies
-    };
+    if (res.data.errors.cpf) {
+      this.form.get('cpf')?.setErrors({ exists: true });
+    }
 
+    if (res.data.errors.email) {
+      this.form.get('email')?.setErrors({ exists: true });
+    }
 
-    this.loading = true;
-
-    this.employeeService.create(payload).subscribe({
-      next: () => {
-        this.loading = false;
-        this.router.navigate(['/employees']);
-      },
-      error: (err) => {
-        this.loading = false;
-      }
-    });
+    return;
   }
+
+  // Outros erros
+  this.form.setErrors({ requestFailed: true });
+}
+    
+  });
+}
+
 
   cancel() {
     this.router.navigate(['/employees']);

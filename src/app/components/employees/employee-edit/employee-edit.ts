@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { EmployeeService } from '../../../services/employee.service';
@@ -18,6 +18,7 @@ export class EmployeeEditComponent implements OnInit {
   form!: FormGroup;
   employeeId!: number;
   companies: any[] = [];
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -32,11 +33,11 @@ export class EmployeeEditComponent implements OnInit {
     this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
 
     this.form = this.fb.group({
-      login: [''],
-      name: [''],
-      cpf: [''],
-      email: [''],
-      password: [''],
+      login: ['', [Validators.required, Validators.pattern(/^[A-Za-z0-9_-]+$/)]],
+      name: ['', Validators.required],
+      cpf: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.minLength(6)],
       company_ids: [[]]
     });
 
@@ -57,13 +58,9 @@ export class EmployeeEditComponent implements OnInit {
     });
   }
 
-  get selectedCompanies() {
-    return this.form.get('company_ids')?.value || [];
-  }
-
   loadCompanies() {
     this.companyesService.getAll().subscribe((res) => {
-      this.companies = res;
+      this.companies = res.data ?? res;
       this.cdr.detectChanges();
     });
   }
@@ -83,22 +80,54 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   save() {
+    this.form.markAllAsTouched();
+
+    const rawCpf = this.form.get('cpf')?.value || '';
+    const cpf = rawCpf.replace(/\D/g, '');
+    this.form.get('cpf')?.setValue(cpf);
+
+    if (cpf.length !== 11) {
+      this.form.get('cpf')?.setErrors({ invalidLength: true });
+    }
+
     if (this.form.invalid) return;
 
     const payload: any = {
       login: this.form.value.login,
       name: this.form.value.name,
-      cpf: this.form.value.cpf,
+      cpf,
       email: this.form.value.email,
       company_ids: this.form.value.company_ids
     };
 
-    if (this.form.value.password && this.form.value.password.trim() !== '') {
+    if (this.form.value.password?.trim() !== '') {
       payload.password = this.form.value.password;
     }
 
-    this.employeesService.update(this.employeeId, payload).subscribe(() => {
-      this.router.navigate(['/employees']);
+    this.loading = true;
+
+    this.employeesService.update(this.employeeId, payload).subscribe((res: any) => {
+      this.loading = false;
+
+      if (res?.id) {
+        this.router.navigate(['/employees']);
+        return;
+      }
+
+      if (res?.status === 422 && res?.data?.errors) {
+        if (res.data.errors.login) {
+          this.form.get('login')?.setErrors({ exists: true });
+        }
+        if (res.data.errors.cpf) {
+          this.form.get('cpf')?.setErrors({ exists: true });
+        }
+        if (res.data.errors.email) {
+          this.form.get('email')?.setErrors({ exists: true });
+        }
+        return;
+      }
+
+      this.form.setErrors({ requestFailed: true });
     });
   }
 
