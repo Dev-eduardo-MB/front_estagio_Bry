@@ -1,0 +1,50 @@
+<div class="page">
+  <div class="card">
+
+    <h2 class="title">Company Management</h2>
+
+    <button class="btn primary new-btn" [routerLink]="['/companies/new']">
+      + Add Company
+    </button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>CNPJ</th>
+          <th>Address</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngIf="companies.length === 0">
+          <td colspan="6" class="no-data">
+            No companies registered.
+          </td>
+        </tr>
+
+        <tr *ngFor="let company of companies">
+          <td>{{ company.name }}</td>
+          <td>{{ company.cnpj }}</td>
+          <td>{{ company.address }}</td>
+      
+          <td class="actions">
+            <button class="btn info" [routerLink]="['/companies', company.id, 'info']">
+              Info
+            </button>
+            <button class="btn primary" [routerLink]="['/companies', company.id]">
+              Edit
+            </button>
+            <button class="btn danger" (click)="deleteCompany(company.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+</div>

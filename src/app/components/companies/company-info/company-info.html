@@ -1,0 +1,35 @@
+<div class="page">
+  <div class="card">
+
+    <h2 class="title">Employees List</h2>
+
+    <div *ngIf="loading" class="loading">Carregando...</div>
+
+    <table *ngIf="!loading && employees.length > 0" class="table">
+      <thead>
+        <tr>
+          <th>Login</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>E-mail</th>
+          <th>Senha (hash)</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let emp of employees">
+          <td>{{ emp.login }}</td>
+          <td>{{ emp.name }}</td>
+          <td>{{ emp.cpf }}</td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.password }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="!loading && employees.length === 0" class="empty-message">
+      Nenhum funcionário vinculado a esta empresa.
+    </div>
+
+  </div>
+</div>

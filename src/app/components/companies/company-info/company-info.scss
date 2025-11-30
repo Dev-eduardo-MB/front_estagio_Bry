@@ -1,0 +1,112 @@
+// Variáveis
+$page-bg: #F4F7FA;
+$white: #FFFFFF;
+$title-color: #003087;
+$primary: #0057B8;
+$primary-hover: #003A75;
+$table-border: #D9E2EC;
+$table-hover: #E8EEF5;
+
+// Layout geral
+.page {
+  background: $page-bg;
+  min-height: 100vh;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+
+.card {
+  background: $white;
+  width: 90%;             // antes 100%
+  max-width: 850px;       // limita o tamanho para não ficar gigante
+  padding: 30px;          // padding um pouco menor
+  border-radius: 14px;
+  margin: 0 auto;         // garante que fique centralizado
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;       // mantém o scroll horizontal se necessário
+}
+
+
+// Título
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  color: $title-color;
+  margin-bottom: 25px;
+}
+
+// Tabela
+.table {
+  width: 100%;
+  min-width: 700px;        
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  background: $white;
+  margin-top: 15px;
+
+  thead {
+    background: $primary;
+    color: #fff;
+
+    th {
+      padding: 14px;
+      font-size: 15px;
+      text-align: left;
+      font-weight: 500;
+    }
+  }
+
+  tbody tr {
+    transition: 0.2s;
+    border-bottom: 1px solid $table-border;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: $table-hover;
+    }
+  }
+
+  td {
+    padding: 14px;
+    font-size: 14px;
+    word-break: break-all;   // Evita estouro de textos longos como hash
+  }
+}
+
+// Loading
+.loading {
+  font-size: 16px;
+  font-weight: 600;
+  color: $primary;
+  margin-top: 10px;
+}
+
+// Nenhum funcionário
+.empty-message {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 6px;
+  background: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  font-size: 15px;
+}
+
+
+// Nenhum funcionário
+.empty-message {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 6px;
+  background: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  font-size: 15px;
+}
