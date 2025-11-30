@@ -5,25 +5,46 @@
 
     <form [formGroup]="form" class="form">
 
-      <!-- Form Fields -->
+      <!-- NAME -->
       <div class="form-group">
         <label>Name:</label>
         <input formControlName="name">
+        <div class="error" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
+          Name is required.
+        </div>
       </div>
 
+      <!-- CNPJ -->
       <div class="form-group">
         <label>CNPJ:</label>
         <input formControlName="cnpj">
+
+        <!-- Required -->
+        <div class="error" *ngIf="form.get('cnpj')?.touched && form.get('cnpj')?.hasError('required')">
+          CNPJ is required.
+        </div>
+
+        <!-- 14 digits -->
+        <div class="error" *ngIf="form.get('cnpj')?.touched && form.get('cnpj')?.hasError('invalidLength')">
+          CNPJ must have exactly 14 digits.
+        </div>
+
+        <!-- Duplicate -->
+        <div class="error" *ngIf="form.get('cnpj')?.hasError('exists')">
+          This CNPJ already exists.
+        </div>
       </div>
 
+      <!-- ADDRESS -->
       <div class="form-group">
         <label>Address:</label>
         <input formControlName="address">
+        <div class="error" *ngIf="form.get('address')?.touched && form.get('address')?.invalid">
+          Address is required.
+        </div>
       </div>
 
-      
-
-      <!-- Employees -->
+      <!-- EMPLOYEES -->
       <h3>Employees</h3>
 
       <div class="company-list">
@@ -39,7 +60,7 @@
 
       <hr>
 
-      <!-- Buttons -->
+      <!-- ACTIONS -->
       <div class="actions">
         <button class="btn primary" type="button" (click)="save()">Save</button>
         <button type="button" class="btn" (click)="cancel()">Cancel</button>
