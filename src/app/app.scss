@@ -1,0 +1,26 @@
+$page-bg: #F4F7FA;
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: $page-bg;
+}
+
+/* Sidebar fica fixo sem mover layout */
+app-sidebar {
+  flex-shrink: 0;
+}
+
+/* Área de conteúdo */
+.content {
+  flex: 1; 
+  padding: 40px 60px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Wrapper que mantém o centro */
+.inner {
+  width: 100%;
+  max-width: 1200px; // largura máxima profissional
+}
