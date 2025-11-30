@@ -1,0 +1,67 @@
+<div class="page">
+  <div class="card">
+
+    <h2 class="title">Employee Form</h2>
+
+    <form class="form" [formGroup]="form">
+
+      <div class="form-group">
+        <label>Login</label>
+        <input type="text" formControlName="login" placeholder="Enter login">
+      </div>
+
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" formControlName="name" placeholder="Enter full name">
+      </div>
+
+      <div class="form-group">
+        <label>CPF</label>
+        <input type="text" formControlName="cpf" placeholder="000.000.000-00">
+      </div>
+
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" formControlName="email" placeholder="example@domain.com">
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" formControlName="password" placeholder="Enter password">
+      </div>
+
+      <!-- COMPANIES -->
+      <div class="form-group">
+        <label>Assign Companies</label>
+
+        <!-- Se não existem empresas -->
+        <div *ngIf="companies.length === 0">
+          <input type="text" value="No companies registered" disabled/>
+        </div>
+
+        <!-- Lista de empresas -->
+        <div class="employee-list" *ngIf="companies.length > 0">
+          <div *ngFor="let comp of companies">
+            <label>
+              <input type="checkbox"
+                     [value]="comp.id"
+                     (change)="toggleCompany(comp.id, $event)">
+              {{ comp.name }} — {{ comp.cnpj }}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="actions">
+        <button type="button" class="btn primary" (click)="save()" [disabled]="loading">
+          {{ loading ? 'Saving...' : 'Save' }}
+        </button>
+
+        <button type="button" class="btn" (click)="cancel()">Cancel</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
