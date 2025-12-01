@@ -1,45 +1,123 @@
 <div class="home-container">
   <main class="content">
-  <h1 class="title">Bem-vindo</h1>
 
-  <section class="intro">
-    <h2 class="section-title">Sobre o Projeto</h2>
-    <p class="section-text">
-      Este sistema foi desenvolvido para gerenciar funcionários e empresas de forma simples.
-      Ele permite realizar todas as operações essenciais, como criar,
-      editar, listar e excluir registros — tudo seguindo os princípios da arquitetura RESTful.
-    </p>
-  </section>
+    <h1 class="title">Bem-vindo</h1>
 
-  <section class="intro">
-    <h2 class="section-title">Tecnologias Utilizadas</h2>
-    <p class="section-text">
-      O frontend foi construído utilizando a versão mais recente do <strong>Angular</strong>,
-      aproveitando componentes standalone. A estilização segue um layout organizado com SCSS.
-    </p>
-    <p class="section-text">
-      O backend é alimentado por uma <strong>API REST</strong>, responsável por toda a lógica
-      de negócio e operações com o banco de dados. A comunicação entre o frontend e a API
-      acontece através de requisições HTTP, garantindo uma arquitetura modular e robusta.
-    </p>
-  </section>
+    <section class="intro">
+      <h2 class="section-title">Sobre o Projeto</h2>
 
-  <section class="intro">
-    <h2 class="section-title">O que é uma API REST?</h2>
-    <p class="section-text">
-      Uma API REST (Representational State Transfer) é um estilo arquitetural que organiza a
-      comunicação entre sistemas utilizando os verbos HTTP, como <strong>GET</strong>,
-      <strong>POST</strong>, <strong>PUT</strong> e <strong>DELETE</strong>. Cada requisição
-      representa uma ação sobre um recurso, tornando o sistema previsível, escalável e fácil
-      de manter.
-    </p>
-  </section>
-
-  <div class="actions">
-    <button routerLink="/employees" class="btn primary">Lista de Funcionários</button>
-    <button routerLink="/companies" class="btn secondary">Lista de Empresas</button>
-  </div>
-</main>
+      <p class="section-text">
+        Este sistema foi desenvolvido para realizar o gerenciamento de empresas e funcionários,
+        permitindo criar, editar, listar e excluir registros com integração entre front-end e API REST.
+      </p>
 
 
+      <p class="section-text">
+        O sistema foi projetado para suportar o relacionamento <strong>N:N</strong> entre empresas e funcionários,
+        permitindo que um funcionário participe de várias empresas e cada empresa tenha múltiplos funcionários.
+      </p>
+
+      <p class="section-text">
+          Todas as entidades passam por validações antes de serem salvas no banco. Para empresas,
+        são exigidos nome e endereço, além de um CNPJ obrigatório com exatamente 14 dígitos e sem duplicações.
+        Para funcionários, o login deve ser único e composto apenas por letras, números, ponto e underline;
+        o CPF precisa ter 11 dígitos e não pode se repetir; o e-mail é validado e deve ser único; e a senha
+        precisa ter no mínimo 6 caracteres. Todas as operações incluem tratamento consistente de erros e,
+        no caso de funcionários, a senha é automaticamente protegida através de hashing. A  api retorna o hash da senha,
+        mas caso isso não for oportuno basta comentar a funçao que passa a hash em <strong>EmployeeController</strong> Para que ela não seja cadastrada já hasheada.
+        </p>
+    </section>
+
+    <section class="intro">
+      <h2 class="section-title">Tecnologias Utilizadas</h2>
+
+      <p class="section-text">
+        O front-end utiliza <strong>Angular 21</strong> com componentes standalone, rotas com lazy loading,
+        uso de Services para comunicação com a API.
+      </p>
+
+      <p class="section-text">
+        A aplicação conta com páginas de <strong>listagem, criação, edição e detalhes</strong>, permitindo visualização
+        de funcionários com suas empresas e empresas com seus funcionários,com sincronização via HTTP.
+      </p>
+
+      <p class="section-text">
+        No back-end, foi utilizada uma <strong>API REST em Laravel</strong>, seguindo o padrão MVC.
+        Os controllers implementam CRUD completo, validações e respostas estruturadas.
+      </p>
+
+      <p class="section-text">
+        A arquitetura do Laravel inclui controllers dedicados, models bem definidos e relacionamento N:N
+        através da tabela pivot <strong>company_employee</strong>.
+      </p>
+
+    </section>
+
+   
+    <section class="intro">
+      <h2 class="section-title">API REST e Validações</h2>
+
+      <p class="section-text">
+        A API segue os padrões RESTful utilizando os verbos HTTP GET, POST, PUT e DELETE para manipulação
+        de recursos.
+      </p>
+
+      <p class="section-text">
+        O <strong>EmployeeController</strong> possui validações como login sem caracteres especiais,
+        CPF com 11 dígitos, e regras de unicidade com ignore para atualizações. A senha recebe hash
+        automaticamente para garantir segurança.
+      </p>
+
+      <p class="section-text">
+        O <strong>CompanyController</strong> implementa validações de CNPJ com 14 dígitos, nome obrigatório,
+        endereço obrigatório e sincronização de funcionários por meio de arrays IDs enviados pelo front-end.
+      </p>
+
+      <p class="section-text">
+        A API utiliza eager loading para retornar todos os relacionamentos já associados,
+        garantindo eficiência e reduzindo múltiplas consultas ao banco.
+      </p>
+    </section>
+
+   
+    <section class="intro">
+      <h2 class="section-title">Serviços do Angular</h2>
+
+      <p class="section-text">
+        Os Services do Angular centralizam toda a comunicação com a API. O <strong>CompanyService</strong>
+        e o <strong>EmployeeService</strong> possuem métodos padronizados para criação, edição, remoção
+        e listagem, retornando respostas organizadas em um formato uniforme.
+      </p>
+
+      <p class="section-text">
+        A aplicação também conta com um método interno chamado <strong>wrap()</strong>, utilizado para padronizar
+        erros e respostas HTTP, facilitando o tratamento de mensagens no front-end.
+      </p>
+
+    </section>
+
+   
+    <section class="intro">
+      <h2 class="section-title">Rotas de navegação</h2>
+      <p class="section-text">
+      As rotas da aplicação foram organizadas utilizando carregamento dinâmico via loadComponent.
+      A navegação inicia pela rota <strong>/home</strong>, responsável por apresentar a página inicial do sistema.
+      O módulo de funcionários inclui rotas específicas para listar todos os registros em <strong>/employees</strong>,
+      criar novos funcionários em <strong>/employees/new</strong> e editar um funcionário existente por meio da rota <strong>dinâmica /employees/:id</strong>.
+      O módulo de empresas segue a mesma arquitetura, com a listagem geral em <strong>/companies</strong>,
+      o formulário de criação em <strong>/companies/new</strong> e a edição em <strong>/companies/:id</strong>. Além disso,
+      há uma rota exclusiva para visualizar informações detalhadas de uma empresa, disponível em <strong>/companies/:id/info</strong>. 
+      Por fim, qualquer rota inválida é tratada pelo fallback **, que redireciona automaticamente o usuário para <strong>/home</strong>.
+      </p>
+      
+
+    </section>
+  
+
+    <div class="actions">
+      <button routerLink="/employees" class="btn primary">Lista de Funcionários</button>
+      <button routerLink="/companies" class="btn secondary">Lista de Empresas</button>
+    </div>
+
+  </main>
 </div>

@@ -1,18 +1,18 @@
 <div class="page">
   <div class="card">
 
-    <h2 class="title">Company Management</h2>
+    <h2 class="title">Empresas cadastradas</h2>
 
     <button class="btn primary new-btn" [routerLink]="['/companies/new']">
-      + Add Company
+      Adicionar Empresa
     </button>
 
     <table>
       <thead>
         <tr>
-          <th>Company Name</th>
+          <th>Nome da empresa</th>
           <th>CNPJ</th>
-          <th>Address</th>
+          <th>Endereço</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -21,7 +21,7 @@
 
         <tr *ngIf="companies.length === 0">
           <td colspan="6" class="no-data">
-            No companies registered.
+            Nenhuma empresas cadastradas.
           </td>
         </tr>
 

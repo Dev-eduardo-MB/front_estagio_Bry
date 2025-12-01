@@ -1,39 +1,38 @@
 <div class="page">
   <div class="card">
 
-    <h2 class="title">Employee Form</h2>
+    <h2 class="title">Cadastro de Funcionários</h2>
 
     <form class="form" [formGroup]="form">
 
-      <!-- LOGIN -->
+  
       <div class="form-group">
-        <label>Login</label>
+        <label>*Login</label>
         <input 
           type="text" 
           formControlName="login" 
           placeholder="Enter login"
         >
 
-        <!-- required -->
+        
         <div class="error" *ngIf="form.get('login')?.touched && form.get('login')?.hasError('required')">
-          Login is required.
+          Login é obrigatório.
         </div>
 
-        <!-- padrão inválido -->
+       
         <div class="error" *ngIf="form.get('login')?.touched && form.get('login')?.hasError('pattern')">
-          Login can only contain letters, numbers, hyphen (-) and underscore (_).
+          Apenas letras, números, _ e - são permitidos.
         </div>
 
-        <!-- duplicado -->
+       
         <div class="error" *ngIf="form.get('login')?.hasError('exists')">
-          This login already exists.
+          Este login já existe.
         </div>
       </div>
 
 
-      <!-- NAME -->
       <div class="form-group">
-        <label>Name</label>
+        <label>*Nome</label>
         <input 
           type="text" 
           formControlName="name" 
@@ -41,36 +40,37 @@
         >
 
         <div class="error" *ngIf="form.get('name')?.touched && form.get('name')?.hasError('required')">
-          Name is required.
+          Nome é obrigatório.
         </div>
       </div>
 
       <div class="form-group">
-        <label>CPF</label>
-
-        <input 
+        <label>*CPF</label>
+      
+        <input
           type="text"
           formControlName="cpf"
           placeholder="000.000.000-00"
           maxlength="14"
           (input)="form.get('cpf')?.setValue($event.target.value.replace(/[^0-9]/g,''))"
         >
-
+      
         <div class="error" *ngIf="form.get('cpf')?.touched && form.get('cpf')?.hasError('required')">
-          CPF is required.
+          CPF é obrigatório.
         </div>
-
+      
         <div class="error" *ngIf="form.get('cpf')?.hasError('invalidLength')">
-          CPF must contain exactly 11 digits.
+          CPF deve conter exatamente 11 dígitos.
         </div>
-
+      
         <div class="error" *ngIf="form.get('cpf')?.hasError('exists')">
-          This CPF is already in use.
+          Este CPF já existe.
         </div>
       </div>
 
+
       <div class="form-group">
-        <label>E-mail</label>
+        <label>*Email</label>
 
         <input 
           type="email" 
@@ -80,24 +80,24 @@
 
     
         <div class="error" *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')">
-          Email is required.
+          Email é obrigatório.
         </div>
 
      
         <div class="error" *ngIf="form.get('email')?.touched && form.get('email')?.hasError('email')">
-          Enter a valid email.
+          Formato invalio.
         </div>
 
         
         <div class="error" *ngIf="form.get('email')?.hasError('exists')">
-          This email is already in use.
+          Este Email já esta em uso.
         </div>
       </div>
 
 
       
       <div class="form-group">
-        <label>Password</label>
+        <label>*Senha</label>
 
         <input 
           type="password" 
@@ -107,18 +107,18 @@
 
        
         <div class="error" *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')">
-          Password is required.
+          Senha é obrigatório.
         </div>
 
         
         <div class="error" *ngIf="form.get('password')?.hasError('minlength')">
-          Password must be at least 6 characters.
+          A senha deve conter pelo menos 6 digitos.
         </div>
       </div>
 
 
       <div class="form-group">
-        <label>Assign Companies</label>
+        <label>Vincular Empresas</label>
 
         <div *ngIf="companies.length === 0">
           <input type="text" value="No companies registered" disabled/>

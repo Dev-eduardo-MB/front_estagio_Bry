@@ -20,8 +20,6 @@ $table-hover: #E8EEF5;
 .content {
   flex: 1;
  
-
-
   .title {
     font-size: 36px;
     font-weight: 700;
@@ -47,6 +45,7 @@ $table-hover: #E8EEF5;
       color: #444;
       line-height: 1.6;
       margin-bottom: 15px;
+      text-align: left;
     }
   }
 

@@ -1,86 +1,86 @@
 <div class="page">
   <div class="card">
 
-    <h2 class="title">Edit Employee</h2>
+    <h2 class="title">Editar funcionário</h2>
 
     <form [formGroup]="form" (ngSubmit)="save()" class="form">
 
      
       <div class="form-group">
-        <label>Login</label>
+        <label>*Login</label>
         <input type="text" formControlName="login" />
 
         <small class="error" *ngIf="form.get('login')?.hasError('required') && form.get('login')?.touched">
-          Login is required.
+          Login é obrigatório.
         </small>
 
         <small class="error" *ngIf="form.get('login')?.hasError('pattern') && form.get('login')?.touched">
-          Only letters, numbers, _ and - are allowed.
+          Apenas letras, números, _ e - são permitidos.
         </small>
 
         <small class="error" *ngIf="form.get('login')?.hasError('exists')">
-          This login is already taken.
+          Este login já está em uso.
         </small>
       </div> 
 
      
       <div class="form-group">
-        <label>Name</label>
+        <label>*Nome</label>
         <input type="text" formControlName="name" />
 
         <small class="error" *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched">
-          Name is required.
+          Nome é obrigatório.
         </small>
       </div>
 
       <div class="form-group">
-        <label>CPF</label>
+        <label>*CPF</label>
         <input type="text" formControlName="cpf" />
 
         <small class="error" *ngIf="form.get('cpf')?.hasError('required') && form.get('cpf')?.touched">
-          CPF is required.
+          CPF é obrigatório.
         </small>
 
         <small class="error" *ngIf="form.get('cpf')?.hasError('invalidLength')">
-          CPF must contain exactly 11 digits.
+          O CPF deve conter exatamente 11 digitos.
         </small>
 
         <small class="error" *ngIf="form.get('cpf')?.hasError('exists')">
-          This CPF already exists.
+          Este CPF já existe.
         </small>
       </div>
 
    
       <div class="form-group">
-        <label>Email</label>
+        <label>*Email</label>
         <input type="email" formControlName="email" />
 
         <small class="error" *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
-          Email is required.
+          Email é obrigatório.
         </small>
 
         <small class="error" *ngIf="form.get('email')?.hasError('email')">
-          Invalid email format.
+          Formato invalio.
         </small>
 
         <small class="error" *ngIf="form.get('email')?.hasError('exists')">
-          This email is already in use.
+          Este Email já esta em uso.
         </small>
       </div>
 
     
       <div class="form-group">
-        <label>Password (leave empty to keep current)</label>
+        <label>Senha (deixe vazio para manter a atual)</label>
         <input type="password" formControlName="password" />
 
         <small class="error" *ngIf="form.get('password')?.hasError('minlength') && form.get('password')?.touched">
-          Minimum 6 characters.
+          A senha deve conter pelo menos 6 digitos.
         </small>
       </div>
 
       
       <div class="form-group">
-        <label>Companies</label>
+        <label>Vincular/Desvincular Empresas</label>
 
         <div class="company-list">
           <label *ngFor="let company of companies">
@@ -95,11 +95,6 @@
       </div>
 
       
-      <small class="error" *ngIf="form?.hasError('requestFailed')">
-        Error while updating employee. Try again later.
-      </small>
-
-    
       <div class="actions">
         <button class="btn outline" type="button" (click)="cancel()">Cancel</button>
         <button class="btn primary" type="submit" [disabled]="loading">Save</button>

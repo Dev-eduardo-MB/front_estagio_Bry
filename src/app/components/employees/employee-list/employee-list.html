@@ -1,14 +1,14 @@
 <div class="page">
 
   <div class="card">
-    <h2 class="title">Employee Management</h2>
+    <h2 class="title">Funcionários cadastrados</h2>
 
     <button class="btn primary new-btn" [routerLink]="['/employees/new']">
-      + Add Employee
+      Adicionar funcionário
     </button>
 
     <div *ngIf="loading" class="loading">
-      Loading employees...
+      Carregando Funcionários...
     </div>
 
     <div *ngIf="error" class="error">
@@ -19,10 +19,10 @@
       <thead>
         <tr>
           <th class="th">Login</th>
-          <th class="th">Name</th>
-          <th class="th">E-mail</th>
+          <th class="th">Nome</th>
+          <th class="th">Email</th>
           <th class="th">CPF</th>
-          <th class="th">Companies</th>
+          <th class="th">Empresas</th>
           <th class="th">Actions</th>
         </tr>
       </thead>
@@ -35,7 +35,7 @@
           <td>{{ e.cpf }}</td>
 
           <td>
-            <span *ngIf="e.companies?.length === 0">None</span>
+            <span *ngIf="e.companies?.length === 0"></span>
             <span *ngFor="let c of e.companies; let i = index">
               {{ c.name }}<span *ngIf="i < e.companies.length - 1">, </span>
             </span>
@@ -55,7 +55,7 @@
     </table>
 
     <div *ngIf="!loading && employees.length === 0" class="empty">
-      No employees found.
+      Nenhum funcionário cadastrado.
     </div>
 
   </div>
